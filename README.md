@@ -7,6 +7,11 @@ Planned core-features are:
 * assigning multiple aliases to identities
 * searching for identities based on aliases and tags
 
+## How to run
+Run the application with
+
+`mvn clean javafx:run`
+
 ## Possible applications
 The idea for this project came from the desire to make organizing internet browser bookmarks that point to profiles of digital artists easier,
 and thus it can be used for that.
