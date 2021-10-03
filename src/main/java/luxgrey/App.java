@@ -17,11 +17,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("IdentityList"), 640, 480);
+        scene = new Scene(loadFXML("IdentityList"), 1200, 800);
         stage.setScene(scene);
         stage.setTitle("TomokiDB");
         stage.setMinHeight(250);
-        stage.setMinWidth(500);
+        stage.setMinWidth(650);
 
         stage.show();
     }
@@ -30,9 +30,13 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+    public static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = createFXMLLoader(fxml);
         return fxmlLoader.load();
+    }
+
+    public static FXMLLoader createFXMLLoader(String fxml) {
+        return new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
     }
 
     public static void main(String[] args) {

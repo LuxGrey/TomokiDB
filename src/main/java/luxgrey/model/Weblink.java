@@ -1,24 +1,75 @@
 package luxgrey.model;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 @Entity
+@Access(AccessType.PROPERTY)
 @Table(name = "weblinks")
-public class Weblink {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+public class Weblink implements Externalizable {
+
   private int id;
-  private String url;
-  @ManyToOne
+  private StringProperty url;
+  private String _url;
   private Identity identity;
 
-  public Weblink() {}
+  public Weblink() {
+  }
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getUrl() {
+    if (url == null) {
+      return _url;
+    } else {
+      return url.get();
+    }
+  }
+
+  public void setUrl(String url) {
+    if(this.url == null) {
+      _url = url;
+    } else {
+      this.url.set(url);
+    }
+  }
+
+  public StringProperty urlProperty() {
+    if (url == null) {
+      url = new SimpleStringProperty(this, "url", _url);
+    }
+    return url;
+  }
+
+  @ManyToOne
+  public Identity getIdentity() {
+    return identity;
+  }
+
+  public void setIdentity(Identity identity) {
+    this.identity = identity;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -37,15 +88,15 @@ public class Weblink {
     return Objects.hash(id);
   }
 
-  public int getId() {
-    return id;
+  @Override
+  public void writeExternal(ObjectOutput out) throws IOException {
+    out.writeInt(getId());
+    out.writeObject(getUrl());
   }
 
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
+  @Override
+  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    setId(in.readInt());
+    setUrl((String) in.readObject());
   }
 }

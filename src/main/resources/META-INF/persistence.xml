@@ -3,14 +3,19 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   version="3.0"
   xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
-  <persistence-unit name="default">
+  <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>luxgrey.model.Identity</class>
+    <class>luxgrey.model.Weblink</class>
+    <class>luxgrey.model.Alias</class>
+    <class>luxgrey.model.Tag</class>
+    <class>luxgrey.model.IdentityTag</class>
+
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-      <!-- database-url is omitted here to allow this property to be dynamically set by the application -->
-      <!-- <property name="javax.persistence.jdbc.url"
-        value="jdbc:derby:/" /> -->
-      <property name="javax.persistence.jdbc.user" value="test" />
-      <property name="javax.persistence.jdbc.password" value="test" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:/derby/tomokidb;create=true" />
+      <!-- <property name="javax.persistence.jdbc.user" value="tomoki" />
+      <property name="javax.persistence.jdbc.password" value="sakurai" / -->
 
       <!-- EclipseLink should create the database schema automatically -->
       <property name="eclipselink.ddl-generation" value="create-tables" />

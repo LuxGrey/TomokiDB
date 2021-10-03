@@ -1,0 +1,11 @@
+.add-button {
+  -fx-graphic: url(../images/outline_add_black_24dp.png);
+}
+
+.tags-button {
+  -fx-graphic: url(../images/outline_local_offer_black_24dp.png);
+}
+
+.button {
+  -fx-content-display: left;
+}

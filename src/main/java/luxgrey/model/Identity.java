@@ -1,29 +1,97 @@
 package luxgrey.model;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 @Entity
+@Access(AccessType.PROPERTY)
 @Table(name = "identities")
-public class Identity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+public class Identity implements Externalizable {
+
   private int id;
-  @OneToMany(mappedBy = "identity")
+  private StringProperty note;
+  private String _note;
   private Collection<Weblink> weblinks = new HashSet<>();
-  @OneToMany(mappedBy = "identity")
-  private Collection<Tag> tags = new HashSet<>();
-  @OneToMany(mappedBy = "identity")
+  private Collection<IdentityTag> tags = new HashSet<>();
   private Collection<Alias> aliases = new HashSet<>();
 
-  public Identity() {}
+  public Identity() {
+  }
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getNote() {
+    if (note == null) {
+      return _note;
+    } else {
+      return note.get();
+    }
+  }
+
+  public void setNote(String note) {
+    if (this.note == null) {
+      _note = note;
+    } else {
+      this.note.set(note);
+    }
+  }
+
+  public StringProperty noteProperty() {
+    if (note == null) {
+      note = new SimpleStringProperty(this, "note", _note);
+    }
+    return note;
+  }
+
+  @OneToMany(mappedBy = "identity")
+  public Collection<Weblink> getWeblinks() {
+    return weblinks;
+  }
+
+  public void setWeblinks(Collection<Weblink> weblinks) {
+    this.weblinks = weblinks;
+  }
+
+  @OneToMany(mappedBy = "identity")
+  public Collection<IdentityTag> getTags() {
+    return tags;
+  }
+
+  public void setTags(Collection<IdentityTag> tags) {
+    this.tags = tags;
+  }
+
+  @OneToMany(mappedBy = "identity")
+  public Collection<Alias> getAliases() {
+    return aliases;
+  }
+
+  public void setAliases(Collection<Alias> aliases) {
+    this.aliases = aliases;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -42,7 +110,15 @@ public class Identity {
     return Objects.hash(id);
   }
 
-  public int getId() {
-    return id;
+  @Override
+  public void writeExternal(ObjectOutput out) throws IOException {
+    out.writeInt(getId());
+    out.writeObject(getNote());
+  }
+
+  @Override
+  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    setId(in.readInt());
+    setNote((String) in.readObject());
   }
 }

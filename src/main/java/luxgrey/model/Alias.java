@@ -1,24 +1,73 @@
 package luxgrey.model;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 @Entity
+@Access(AccessType.PROPERTY)
 @Table(name = "aliases")
-public class Alias {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+public class Alias implements Externalizable {
   private int id;
-  private String name;
-  @ManyToOne
+  private StringProperty name;
+  private String _name;
   private Identity identity;
 
   public Alias() {}
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    if (name == null) {
+      return _name;
+    } else {
+      return name.get();
+    }
+  }
+
+  public void setName(String name) {
+    if (this.name == null) {
+      _name = name;
+    } else {
+      this.name.set(name);
+    }
+  }
+
+  public StringProperty nameProperty() {
+    if (name == null) {
+      name = new SimpleStringProperty(this, "name", _name);
+    }
+    return name;
+  }
+
+  @ManyToOne
+  public Identity getIdentity() {
+    return identity;
+  }
+
+  public void setIdentity(Identity identity) {
+    this.identity = identity;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -37,15 +86,15 @@ public class Alias {
     return Objects.hash(id);
   }
 
-  public int getId() {
-    return id;
+  @Override
+  public void writeExternal(ObjectOutput out) throws IOException {
+    out.writeInt(getId());
+    out.writeObject(getName());
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
+  @Override
+  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    setId(in.readInt());
+    setName((String) in.readObject());
   }
 }
