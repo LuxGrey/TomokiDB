@@ -1,8 +1,8 @@
 package luxgrey.controller;
 
-import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javax.persistence.EntityManager;
 import luxgrey.PersistenceHelper;
 import luxgrey.model.Identity;
 

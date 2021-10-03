@@ -32,3 +32,6 @@
 
 # IntelliJ
 target/
+
+# Logs
+*.log

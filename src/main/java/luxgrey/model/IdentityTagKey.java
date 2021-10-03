@@ -1,17 +1,17 @@
 package luxgrey.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class IdentityTagKey implements Serializable {
   @Column(name = "identity_id")
-  int identityId;
+  private int identityId;
 
   @Column(name = "tag_id")
-  int tagId;
+  private int tagId;
 
   public int getIdentityId() {
     return identityId;
