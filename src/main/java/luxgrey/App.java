@@ -15,6 +15,10 @@ public class App extends Application {
 
     private static Scene scene;
 
+    public void init() {
+        PersistenceHelper.init();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("IdentityList"), 1200, 800);

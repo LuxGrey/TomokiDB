@@ -13,7 +13,7 @@
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:/derby/tomokidb;create=true" />
       <property name="javax.persistence.jdbc.user" value="tomoki" />
-      <property name="javax.persistence.jdbc.password" value="sakurai" />
+      <property name="javax.persistence.jdbc.password" value="password" />
 
       <!-- schema generation -->
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

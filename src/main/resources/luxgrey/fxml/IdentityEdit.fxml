@@ -6,25 +6,43 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="luxgrey.controller.IdentityEditController">
-  <children>
-    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <children>
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aliases" />
-    <ListView prefHeight="200.0" prefWidth="200.0" />
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weblinks" />
-    <ListView prefHeight="200.0" prefWidth="200.0" />
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" />
-    <FlowPane prefHeight="200.0" prefWidth="200.0" />
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Note" />
-    <TextArea fx:id="note" prefHeight="200.0" prefWidth="200.0" />
-      </children>
-      <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-      </padding>
-    </VBox>
-  </children>
+<AnchorPane minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="luxgrey.controller.IdentityEditController">
   <stylesheets>
     <URL value="@../css/styles.css" />
   </stylesheets>
+  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+      <children>
+        <Button minWidth="41.0" mnemonicParsing="false" onAction="#saveButtonAction" prefWidth="41.0" text="Save" />
+        <Button minWidth="52.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefWidth="52.0" text="Cancel" />
+      </children>
+      <padding>
+        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+    </HBox>
+    <ScrollPane hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+        <VBox>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aliases" />
+          <ListView minHeight="40" prefHeight="40">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></ListView>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weblinks" />
+          <ListView minHeight="40" prefHeight="40">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></ListView>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" />
+          <FlowPane minHeight="40" prefHeight="40">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></FlowPane>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Note" />
+          <TextArea fx:id="note" minHeight="60" prefHeight="60" />
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </ScrollPane>
+  </VBox>
 </AnchorPane>
