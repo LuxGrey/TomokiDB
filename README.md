@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # TomokiDB
 * [What is TomokiDB](#what-is-tomokidb)
 * [Requirements](#requirements)
